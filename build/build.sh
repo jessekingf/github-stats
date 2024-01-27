@@ -3,8 +3,8 @@ set -e
 
 # Build parameters
 src=../src
-sln=$src/Example.sln
-mainProj=$src/Example/Example.csproj
+sln=$src/GitHubStats.sln
+mainProj=$src/GitHubStats/GitHubStats.csproj
 
 dist=../dist
 publishDir=$dist/Publish

@@ -1,6 +1,4 @@
-﻿namespace Example;
-
-using Example.Library;
+﻿namespace GitHubStats;
 
 /// <summary>
 /// The entry class of the application.
@@ -13,6 +11,5 @@ internal class Program
     public static void Main()
     {
         Console.WriteLine("Hello world!");
-        Foo.Bar();
     }
 }
