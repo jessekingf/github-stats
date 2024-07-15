@@ -1,0 +1,8 @@
+﻿{
+  "profiles": {
+    "GitHubStats": {
+      "commandName": "Project",
+      "commandLineArgs": "jessekingf github-stats"
+    }
+  }
+}
