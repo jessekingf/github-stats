@@ -32,8 +32,6 @@ internal class Program
             token = args[2];
         }
 
-        Console.WriteLine("Retrieving GitHub statistics...");
-
         GitHubService service = new();
         RepositoryStatistics repoStats = await service.GetContributorStatistics(owner, repository, token);
         PrintStats(repoStats);
@@ -52,7 +50,6 @@ internal class Program
             output.AppendLine();
         }
 
-        Console.Clear();
         Console.WriteLine(output);
     }
 }

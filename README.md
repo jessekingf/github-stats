@@ -20,3 +20,8 @@ GitHubStats.exe [owner] [repo] [token]
 ```shell
 GitHubStats.exe jessekingf github-stats
 ```
+
+## Install
+
+1. Install the [.NET 8.0 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
+2. Download the latest [release](https://github.com/jessekingf/github-stats/releases).
