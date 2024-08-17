@@ -21,6 +21,16 @@ GitHubStats.exe [owner] [repo] [token]
 GitHubStats.exe jessekingf github-stats
 ```
 
+Output:
+
+```shell
+jessekingf
+Commits: 4
+Lines added: 1877
+Lines deleted: 453
+Lines changed: 2330
+```
+
 ## Install
 
 1. Install the [.NET 8.0 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
