@@ -2,8 +2,10 @@
 
 using System.Text;
 using System.Threading.Tasks;
-using GitHubStats.Core;
+using GitHubStats.Core.Git;
 using GitHubStats.Core.Model;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 /// <summary>
 /// The entry class of the application.
@@ -32,7 +34,9 @@ internal class Program
             token = args[2];
         }
 
-        GitHubService service = new();
+        using IHost host = Startup.CreateHost(args);
+
+        IGitService service = host.Services.GetRequiredService<IGitService>();
         RepositoryStatistics repoStats = await service.GetContributorStatistics(owner, repository, token);
         PrintStats(repoStats);
     }

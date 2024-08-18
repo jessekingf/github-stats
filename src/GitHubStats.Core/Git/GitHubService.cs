@@ -1,13 +1,24 @@
-﻿namespace GitHubStats.Core;
+﻿namespace GitHubStats.Core.Git;
 
-using GitHubStats.Client;
+using GitHub.Client;
 using GitHubStats.Core.Model;
 
 /// <summary>
 /// Provides functionality for retrieving data from GitHub.
 /// </summary>
-public class GitHubService
+public class GitHubService : IGitService
 {
+    private readonly IGitHubClient gitHubClient;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GitHubService"/> class.
+    /// </summary>
+    /// <param name="gitHubClient">The git hub client.</param>
+    public GitHubService(IGitHubClient gitHubClient)
+    {
+        this.gitHubClient = gitHubClient;
+    }
+
     /// <summary>
     /// Gets contributor statistics from a GitHub repository.
     /// </summary>
@@ -20,11 +31,10 @@ public class GitHubService
     /// </remarks>
     public async Task<RepositoryStatistics> GetContributorStatistics(string owner, string repository, string? token = null)
     {
-        GitHubClient gitHubClient = new();
-        ICollection<Client.Model.ContributorStatistics>? gitHubStats = await gitHubClient.GetContributorStatistics(owner, repository, token);
+        ICollection<GitHub.Client.Model.ContributorStatistics>? gitHubStats = await this.gitHubClient.GetContributorStatistics(owner, repository, token);
 
         RepositoryStatistics repoStats = new();
-        foreach (Client.Model.ContributorStatistics contributor in gitHubStats)
+        foreach (GitHub.Client.Model.ContributorStatistics contributor in gitHubStats)
         {
             ContributorStatistics authorStats = new()
             {

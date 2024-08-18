@@ -1,7 +1,6 @@
-﻿namespace GitHubStats.Client.Model;
+﻿namespace GitHub.Client.Model;
 
 using System.Text.Json.Serialization;
-using GitHub.Client.Model;
 
 /// <summary>
 /// Represents GitHub contributor statistics for a repository.

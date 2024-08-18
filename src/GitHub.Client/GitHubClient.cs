@@ -1,16 +1,27 @@
-﻿namespace GitHubStats.Client;
+﻿namespace GitHub.Client;
 
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.Json;
-using GitHubStats.Client.Model;
+using GitHub.Client.Model;
 
 /// <summary>
 /// Provides access to GitHub via the public API.
 /// </summary>
-public class GitHubClient
+public class GitHubClient : IGitHubClient
 {
-    private static readonly Uri GitHubApiUrl = new(@"https://api.github.com/");
+    private readonly HttpClient httpClient;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GitHubClient"/> class.
+    /// </summary>
+    /// <param name="httpClient">The HTTP client for making requests to the GitHub API.</param>
+    public GitHubClient(HttpClient httpClient)
+    {
+        this.httpClient = httpClient;
+    }
 
     /// <summary>
     /// Gets or sets the maximum number of attempts to make to get repository statistics.
@@ -34,27 +45,21 @@ public class GitHubClient
     /// </remarks>
     public async Task<ICollection<ContributorStatistics>> GetContributorStatistics(string owner, string repository, string? token = null)
     {
-        Uri apiUrl = new(GitHubApiUrl, $"repos/{owner}/{repository}/stats/contributors");
-        using HttpClient client = new HttpClient();
-
-        // Set the request headers.
-        client.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
-        client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
-        client.DefaultRequestHeaders.Add("User-Agent", "GitHub Statistics");
-
         if (!string.IsNullOrEmpty(token))
         {
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
         // Make the request to GitHub.
         // GitHub will return 202 (accepted) while is is processing the numbers.
         // Retry until the statistics are returned.
+        Uri apiUrl = new($"repos/{owner}/{repository}/stats/contributors", UriKind.Relative);
         List<ContributorStatistics>? stats = null;
         int attempts = 0;
+
         while (++attempts <= this.MaxStatAttempts && stats == null)
         {
-            HttpResponseMessage response = await client.GetAsync(apiUrl);
+            HttpResponseMessage response = await this.httpClient.GetAsync(apiUrl);
 
             if (response.StatusCode == HttpStatusCode.Accepted)
             {
