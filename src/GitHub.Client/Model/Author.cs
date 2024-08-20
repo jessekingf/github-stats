@@ -31,86 +31,86 @@ public record Author
     /// Gets the URL of the author's avatar image.
     /// </summary>
     [JsonPropertyName("avatar_url")]
-    public Uri? AvatarUrl { get; init; }
+    public string? AvatarUrl { get; init; }
 
     /// <summary>
     /// Gets the Gravatar ID of the author, which is a globally unique identifier for the user's
     /// Gravatar profile image.
     /// </summary>
     [JsonPropertyName("gravatar_id")]
-    public Uri? GravatarId { get; init; }
+    public string? GravatarId { get; init; }
 
     /// <summary>
     /// Gets the API URL of the author.
     /// </summary>
     [JsonPropertyName("url")]
-    public Uri? Url { get; init; }
+    public string? Url { get; init; }
 
     /// <summary>
     /// Gets the HTML URL of the author's GitHub profile.
     /// </summary>
     [JsonPropertyName("html_url")]
-    public Uri? HtmlUrl { get; init; }
+    public string? HtmlUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the author's followers.
     /// </summary>
     [JsonPropertyName("followers_url")]
-    public Uri? FollowersUrl { get; init; }
+    public string? FollowersUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the users that the author is following.
     /// </summary>
     [JsonPropertyName("following_url")]
-    public Uri? FollowingUrl { get; init; }
+    public string? FollowingUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the author's gists.
     /// </summary>
     [JsonPropertyName("gists_url")]
-    public Uri? GistsUrl { get; init; }
+    public string? GistsUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the repositories that the author has starred.
     /// </summary>
     [JsonPropertyName("starred_url")]
-    public Uri? StarredUrl { get; init; }
+    public string? StarredUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the author's subscriptions.
     /// </summary>
     [JsonPropertyName("subscriptions_url")]
-    public Uri? SubscriptionsUrl { get; init; }
+    public string? SubscriptionsUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the organizations that the author belongs to.
     /// </summary>
     [JsonPropertyName("organizations_url")]
-    public Uri? OrganizationsUrl { get; init; }
+    public string? OrganizationsUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the author's repositories.
     /// </summary>
     [JsonPropertyName("repos_url")]
-    public Uri? ReposUrl { get; init; }
+    public string? ReposUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the events performed by the author.
     /// </summary>
     [JsonPropertyName("events_url")]
-    public Uri? EventsUrl { get; init; }
+    public string? EventsUrl { get; init; }
 
     /// <summary>
     /// Gets the API URL for the events received by the author.
     /// </summary>
     [JsonPropertyName("received_events_url")]
-    public Uri? ReceivedEventsUrl { get; init; }
+    public string? ReceivedEventsUrl { get; init; }
 
     /// <summary>
     /// Gets the type of the author (e.g., "User" or "Organization").
     /// </summary>
     [JsonPropertyName("type")]
-    public string? Type { get; init; }
+    public UserType? Type { get; init; }
 
     /// <summary>
     /// Gets a value indicating whether the author is a site administrator.

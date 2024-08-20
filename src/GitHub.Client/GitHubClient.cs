@@ -10,6 +10,9 @@ using GitHub.Client.Model;
 /// <summary>
 /// Provides access to GitHub via the public API.
 /// </summary>
+/// <remarks>
+/// See the API documentation <see href="https://docs.github.com/en/rest">here</see>.
+/// </remarks>
 public class GitHubClient : IGitHubClient
 {
     private readonly HttpClient httpClient;
@@ -42,6 +45,7 @@ public class GitHubClient : IGitHubClient
     /// <returns>The repository contributor statistics.</returns>
     /// <remarks>
     /// Initial requests for statistics may require additional time for GitHub to process.
+    /// See the API documentation <see href="https://docs.github.com/en/rest/metrics/statistics?apiVersion=2022-11-28#get-all-contributor-commit-activity">here</see>.
     /// </remarks>
     public async Task<ICollection<ContributorStatistics>> GetContributorStatistics(string owner, string repository, string? token = null)
     {

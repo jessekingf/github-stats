@@ -30,10 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C1EC3BFB-A
 		..\docs\Setup.md = ..\docs\Setup.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Client.Tests", "GitHub.Client.Tests\GitHub.Client.Tests.csproj", "{6B861086-81DF-4A80-8832-CC83D2D542AD}"
+EndProject
 Global
-	GlobalSection(NestedProjects) = preSolution
-		{C1EC3BFB-A4E2-4AC6-9347-7B0A1E97BF1E} = {A9A8DDD1-3ED2-4BEA-8D7E-4A4E4D06C5D3}
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -55,9 +54,16 @@ Global
 		{BC6D1B5B-ED5A-49B9-9061-2E01B288B4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC6D1B5B-ED5A-49B9-9061-2E01B288B4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC6D1B5B-ED5A-49B9-9061-2E01B288B4FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B861086-81DF-4A80-8832-CC83D2D542AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B861086-81DF-4A80-8832-CC83D2D542AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B861086-81DF-4A80-8832-CC83D2D542AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B861086-81DF-4A80-8832-CC83D2D542AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1EC3BFB-A4E2-4AC6-9347-7B0A1E97BF1E} = {A9A8DDD1-3ED2-4BEA-8D7E-4A4E4D06C5D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4CBC4AC3-33C4-4D01-A60C-5D1AD5FE0D3D}
