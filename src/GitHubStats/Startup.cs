@@ -1,6 +1,7 @@
 ﻿namespace GitHubStats;
 
 using System.Net.Http.Headers;
+using System.Reflection;
 using GitHub.Client;
 using GitHubStats.Core;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,8 @@ using Microsoft.Extensions.Logging;
 /// </summary>
 public class Startup
 {
+    private const string DefaultAppName = "GitHub Statistics";
+
     /// <summary>
     /// Creates the application host.
     /// </summary>
@@ -48,11 +51,17 @@ public class Startup
             client.BaseAddress = new Uri("https://api.github.com/");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
             client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
-            client.DefaultRequestHeaders.Add("User-Agent", "GitHub Statistics");
-
-            // TODO: Config app name
+            client.DefaultRequestHeaders.Add("User-Agent", GetAppName());
         });
 
         services.AddTransient<IGitService, GitHubService>();
+    }
+
+    private static string GetAppName()
+    {
+        return Assembly.GetEntryAssembly()
+            ?.GetCustomAttribute<AssemblyProductAttribute>()
+            ?.Product
+            ?? DefaultAppName;
     }
 }
