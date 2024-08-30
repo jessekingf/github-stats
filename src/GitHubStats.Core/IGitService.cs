@@ -1,7 +1,7 @@
-﻿namespace GitHubStats.Core.Git;
+﻿namespace GitHubStats.Core;
 
 using System.Threading.Tasks;
-using GitHubStats.Core.Model;
+using GitHubStats.Model;
 
 /// <summary>
 /// Provides functionality for retrieving data from Git.

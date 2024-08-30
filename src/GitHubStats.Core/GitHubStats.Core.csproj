@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\GitHub.Client\GitHub.Client.csproj" />
+    <ProjectReference Include="..\GitHubStats.Model\GitHubStats.Model.csproj" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 
 using System.Net.Http.Headers;
 using GitHub.Client;
-using GitHubStats.Core.Git;
+using GitHubStats.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -30,7 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C1EC3BFB-A
 		..\docs\Setup.md = ..\docs\Setup.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Client.Tests", "GitHub.Client.Tests\GitHub.Client.Tests.csproj", "{6B861086-81DF-4A80-8832-CC83D2D542AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHub.Client.Tests", "GitHub.Client.Tests\GitHub.Client.Tests.csproj", "{6B861086-81DF-4A80-8832-CC83D2D542AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubStats.Model", "GitHubStats.Model\GitHubStats.Model.csproj", "{29BD5F38-678B-42E2-A4DC-644CE5C01FE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{6B861086-81DF-4A80-8832-CC83D2D542AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B861086-81DF-4A80-8832-CC83D2D542AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B861086-81DF-4A80-8832-CC83D2D542AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29BD5F38-678B-42E2-A4DC-644CE5C01FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29BD5F38-678B-42E2-A4DC-644CE5C01FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29BD5F38-678B-42E2-A4DC-644CE5C01FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29BD5F38-678B-42E2-A4DC-644CE5C01FE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

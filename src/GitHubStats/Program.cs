@@ -2,8 +2,8 @@
 
 using System.Text;
 using System.Threading.Tasks;
-using GitHubStats.Core.Git;
-using GitHubStats.Core.Model;
+using GitHubStats.Core;
+using GitHubStats.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

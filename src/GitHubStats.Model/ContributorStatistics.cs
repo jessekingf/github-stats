@@ -1,4 +1,4 @@
-﻿namespace GitHubStats.Core.Model;
+﻿namespace GitHubStats.Model;
 
 /// <summary>
 /// Git statistics for a contributor.
