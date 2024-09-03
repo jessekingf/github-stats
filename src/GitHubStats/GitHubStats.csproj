@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GitHubStats.Core\GitHubStats.Core.csproj" />
+    <ProjectReference Include="..\GitHubStats.Reporting\GitHubStats.Reporting.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

@@ -4,6 +4,9 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using GitHub.Client;
 using GitHubStats.Core;
+using GitHubStats.Reporting;
+using GitHubStats.Reporting.Formatters;
+using GitHubStats.Reporting.Writers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -55,6 +58,9 @@ public class Startup
         });
 
         services.AddTransient<IGitService, GitHubService>();
+        services.AddTransient<IGitReportFormatter, GitReportPlainTextFormatter>();
+        services.AddTransient<IGitReportGenerator, GitReportGenerator>();
+        services.AddTransient<IGitReportWriter, GitReportConsoleWriter>();
     }
 
     private static string GetAppName()

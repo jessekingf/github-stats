@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GitHubStats.Core;
 using GitHubStats.Model;
+using GitHubStats.Reporting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -37,23 +38,9 @@ internal class Program
         using IHost host = Startup.CreateHost(args);
 
         IGitService service = host.Services.GetRequiredService<IGitService>();
-        RepositoryStatistics repoStats = await service.GetContributorStatistics(owner, repository, token);
-        PrintStats(repoStats);
-    }
+        RepositoryStatistics stats = await service.GetContributorStatistics(owner, repository, token);
 
-    private static void PrintStats(RepositoryStatistics repoStats)
-    {
-        StringBuilder output = new();
-        foreach (ContributorStatistics contributor in repoStats.Contributors)
-        {
-            output.AppendLine(contributor.Username);
-            output.AppendLine($"Commits: {contributor.TotalCommits}");
-            output.AppendLine($"Lines added: {contributor.LinesAdded}");
-            output.AppendLine($"Lines deleted: {contributor.LinesDeleted}");
-            output.AppendLine($"Lines changed: {contributor.LinesChanged}");
-            output.AppendLine();
-        }
-
-        Console.WriteLine(output);
+        IGitReportGenerator reportGenerator = host.Services.GetRequiredService<IGitReportGenerator>();
+        reportGenerator.GenerateReport(stats);
     }
 }
