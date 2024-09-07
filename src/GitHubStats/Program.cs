@@ -1,6 +1,5 @@
 ﻿namespace GitHubStats;
 
-using System.Text;
 using System.Threading.Tasks;
 using GitHubStats.Core;
 using GitHubStats.Model;

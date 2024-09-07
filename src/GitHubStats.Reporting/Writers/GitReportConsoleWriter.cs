@@ -14,6 +14,11 @@ public class GitReportConsoleWriter : IGitReportWriter
     {
         ArgumentException.ThrowIfNullOrEmpty(reportData, nameof(reportData));
 
-        Console.WriteLine(reportData);
+        if (!Console.IsOutputRedirected)
+        {
+            Console.Clear();
+        }
+
+        Console.Write(reportData);
     }
 }

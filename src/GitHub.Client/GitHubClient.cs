@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using GitHub.Client.Model;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Provides access to GitHub via the public API.
@@ -16,14 +17,17 @@ using GitHub.Client.Model;
 public class GitHubClient : IGitHubClient
 {
     private readonly HttpClient httpClient;
+    private readonly ILogger<GitHubClient> logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GitHubClient"/> class.
     /// </summary>
     /// <param name="httpClient">The HTTP client for making requests to the GitHub API.</param>
-    public GitHubClient(HttpClient httpClient)
+    /// <param name="logger">The application logger.</param>
+    public GitHubClient(HttpClient httpClient, ILogger<GitHubClient> logger)
     {
         this.httpClient = httpClient;
+        this.logger = logger;
     }
 
     /// <summary>
@@ -34,7 +38,7 @@ public class GitHubClient : IGitHubClient
     /// <summary>
     /// Gets or sets the delay in milliseconds between web request attempts.
     /// </summary>
-    public int RetryDelay { get; set; } = 2000;
+    public int RetryDelay { get; set; } = 10000;
 
     /// <summary>
     /// Gets contributor statistics from a GitHub repository.
@@ -63,10 +67,12 @@ public class GitHubClient : IGitHubClient
 
         while (++attempts <= this.MaxStatAttempts && stats == null)
         {
+            this.logger.Log(LogLevel.Information, "Requesting statistics for repository: {Repository}", repository);
             HttpResponseMessage response = await this.httpClient.GetAsync(apiUrl);
 
             if (response.StatusCode == HttpStatusCode.Accepted)
             {
+                this.logger.Log(LogLevel.Information, "GitHub is still calculating statistics...");
                 if (attempts >= this.MaxStatAttempts)
                 {
                     throw new HttpRequestException($"Request did not succeed after {this.MaxStatAttempts} retries.");

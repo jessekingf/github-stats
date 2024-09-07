@@ -26,7 +26,6 @@ public class GitReportPlainTextFormatter : IGitReportFormatter
             report.AppendLine($"Lines added: {contributor.LinesAdded}");
             report.AppendLine($"Lines deleted: {contributor.LinesDeleted}");
             report.AppendLine($"Lines changed: {contributor.LinesChanged}");
-            report.AppendLine();
         }
 
         return report.ToString();

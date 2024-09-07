@@ -34,6 +34,10 @@ public class Startup
             .ConfigureLogging((context, logging) =>
             {
                 logging.AddConfiguration(context.Configuration.GetSection("Logging"));
+                logging.AddFilter((provider, category, logLevel) =>
+                {
+                    return !Console.IsOutputRedirected;
+                });
             })
             .ConfigureServices((context, services) =>
             {

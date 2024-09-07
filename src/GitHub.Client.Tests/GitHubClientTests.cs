@@ -3,6 +3,7 @@
 using System.Net;
 using System.Net.Http;
 using GitHub.Client.Model;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -37,7 +38,9 @@ public class GitHubClientTests
         {
             BaseAddress = new Uri("https://api.github.com/"),
         };
-        GitHubClient gitHubClient = new(httpClient);
+
+        Mock<ILogger<GitHubClient>> loggerMock = new();
+        GitHubClient gitHubClient = new(httpClient, loggerMock.Object);
 
         string owner = "octocat";
         string repository = "Hello-World";
@@ -165,7 +168,9 @@ public class GitHubClientTests
         {
             BaseAddress = new Uri("https://api.github.com/"),
         };
-        GitHubClient gitHubClient = new(httpClient);
+
+        Mock<ILogger<GitHubClient>> loggerMock = new();
+        GitHubClient gitHubClient = new(httpClient, loggerMock.Object);
 
         string owner = "octocat";
         string repository = "Hello-World";
@@ -281,7 +286,9 @@ public class GitHubClientTests
         {
             BaseAddress = new Uri("https://api.github.com/"),
         };
-        GitHubClient gitHubClient = new(httpClient)
+
+        Mock<ILogger<GitHubClient>> loggerMock = new();
+        GitHubClient gitHubClient = new(httpClient, loggerMock.Object)
         {
             MaxStatAttempts = 3,
             RetryDelay = 1,
