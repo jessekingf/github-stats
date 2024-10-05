@@ -53,11 +53,6 @@ public class GitHubClient : IGitHubClient
     /// </remarks>
     public async Task<ICollection<ContributorStatistics>> GetContributorStatistics(string owner, string repository, string? token = null)
     {
-        if (!string.IsNullOrEmpty(token))
-        {
-            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        }
-
         // Make the request to GitHub.
         // GitHub will return 202 (accepted) while is is processing the numbers.
         // Retry until the statistics are returned.
@@ -68,11 +63,18 @@ public class GitHubClient : IGitHubClient
         while (++attempts <= this.MaxStatAttempts && stats == null)
         {
             this.logger.Log(LogLevel.Information, "Requesting statistics for repository: {Repository}", repository);
-            HttpResponseMessage response = await this.httpClient.GetAsync(apiUrl);
+
+            using HttpRequestMessage request = new(HttpMethod.Get, apiUrl);
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+
+            HttpResponseMessage response = await this.httpClient.SendAsync(request);
 
             if (response.StatusCode == HttpStatusCode.Accepted)
             {
-                this.logger.Log(LogLevel.Information, "GitHub is still calculating statistics...");
+                this.logger.Log(LogLevel.Information, "GitHub is still calculating statistics for {Repository}...", repository);
                 if (attempts >= this.MaxStatAttempts)
                 {
                     throw new HttpRequestException($"Request did not succeed after {this.MaxStatAttempts} retries.");
