@@ -15,6 +15,13 @@ GitHubStats.exe [owner] [repo] [token]
 - **Repo** - The name of the repository.
 - **Token** - The repository access token, if required.
 
+### Options:
+
+- `-v`, `--version`
+  - Display the application version.
+- `-h`, `--help`
+  - Display the help.
+
 ### Example
 
 ```shell

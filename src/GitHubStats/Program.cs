@@ -1,10 +1,8 @@
 ﻿namespace GitHubStats;
 
 using System.Threading.Tasks;
-using GitHubStats.Core;
-using GitHubStats.Model;
-using GitHubStats.Reporting;
-using Microsoft.Extensions.DependencyInjection;
+using GitHubStats.Commands;
+using GitHubStats.Exceptions;
 using Microsoft.Extensions.Hosting;
 
 /// <summary>
@@ -19,27 +17,20 @@ internal class Program
     /// <returns>The asynchronous operation.</returns>
     public static async Task Main(string[] args)
     {
-        if (args.Length < 2 || args.Length > 3)
+        using IHost host = Startup.CreateHost(args);
+
+        try
         {
-            await Console.Error.WriteLineAsync("Invalid arguments.");
+            ICommand command = CommandParser.Parse(host, args);
+            await command.Execute();
+        }
+        catch (InvalidOptionException ex)
+        {
+            await Console.Error.WriteLineAsync(ex.Message);
+            await new HelpCommand().Execute();
             Environment.Exit(1);
         }
 
-        string owner = args[0];
-        string repository = args[1];
-
-        string? token = null;
-        if (args.Length == 3)
-        {
-            token = args[2];
-        }
-
-        using IHost host = Startup.CreateHost(args);
-
-        IGitService service = host.Services.GetRequiredService<IGitService>();
-        RepositoryStatistics stats = await service.GetContributorStatistics(owner, repository, token);
-
-        IGitReportGenerator reportGenerator = host.Services.GetRequiredService<IGitReportGenerator>();
-        reportGenerator.GenerateReport(stats);
+        Environment.Exit(0);
     }
 }

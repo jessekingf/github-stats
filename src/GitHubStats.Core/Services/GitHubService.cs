@@ -1,4 +1,4 @@
-﻿namespace GitHubStats.Core;
+﻿namespace GitHubStats.Core.Services;
 
 using GitHub.Client;
 using GitHubStats.Model;

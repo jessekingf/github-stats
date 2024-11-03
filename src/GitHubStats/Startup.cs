@@ -3,7 +3,8 @@
 using System.Net.Http.Headers;
 using System.Reflection;
 using GitHub.Client;
-using GitHubStats.Core;
+using GitHubStats.Commands;
+using GitHubStats.Core.Services;
 using GitHubStats.Reporting;
 using GitHubStats.Reporting.Formatters;
 using GitHubStats.Reporting.Writers;
@@ -53,6 +54,8 @@ public class Startup
     /// <param name="services">The application service collection.</param>
     public void ConfigureServices(IServiceCollection services)
     {
+        ConfigureCommands(services);
+
         services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
         {
             client.BaseAddress = new Uri("https://api.github.com/");
@@ -65,6 +68,13 @@ public class Startup
         services.AddTransient<IGitReportFormatter, GitReportPlainTextFormatter>();
         services.AddTransient<IGitReportGenerator, GitReportGenerator>();
         services.AddTransient<IGitReportWriter, GitReportConsoleWriter>();
+    }
+
+    private static void ConfigureCommands(IServiceCollection services)
+    {
+        services.AddTransient<HelpCommand>();
+        services.AddTransient<StatisticsReportCommand>();
+        services.AddTransient<VersionCommand>();
     }
 
     private static string GetAppName()

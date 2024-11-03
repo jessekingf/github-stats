@@ -32,9 +32,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C1EC3BFB-A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHub.Client.Tests", "GitHub.Client.Tests\GitHub.Client.Tests.csproj", "{6B861086-81DF-4A80-8832-CC83D2D542AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubStats.Model", "GitHubStats.Model\GitHubStats.Model.csproj", "{29BD5F38-678B-42E2-A4DC-644CE5C01FE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubStats.Model", "GitHubStats.Model\GitHubStats.Model.csproj", "{29BD5F38-678B-42E2-A4DC-644CE5C01FE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubStats.Reporting", "GitHubStats.Reporting\GitHubStats.Reporting.csproj", "{E66B838B-600C-4654-A7A0-19007A58285B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubStats.Reporting", "GitHubStats.Reporting\GitHubStats.Reporting.csproj", "{E66B838B-600C-4654-A7A0-19007A58285B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
