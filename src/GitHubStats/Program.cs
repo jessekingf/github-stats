@@ -21,7 +21,9 @@ internal class Program
 
         try
         {
-            ICommand command = CommandParser.Parse(host, args);
+            CommandParser commandParser = new(host);
+            ICommand command = commandParser.Parse(args);
+
             await command.Execute();
         }
         catch (InvalidOptionException ex)

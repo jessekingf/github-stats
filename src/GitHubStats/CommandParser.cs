@@ -9,18 +9,26 @@ using Microsoft.Extensions.Hosting;
 /// <summary>
 /// Parses the command line arguments.
 /// </summary>
-public static class CommandParser
+public class CommandParser
 {
+    private readonly IHost host;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CommandParser"/> class.
+    /// </summary>
+    /// <param name="host">The application host.</param>
+    public CommandParser(IHost host)
+    {
+        this.host = host;
+    }
+
     /// <summary>
     /// Parses the program options from the command-line arguments.
     /// </summary>
-    /// <param name="host">The application host.</param>
     /// <param name="args">The command-line arguments.</param>
     /// <returns>The program options.</returns>
-    public static ICommand Parse(IHost host, string[] args)
+    public ICommand Parse(string[] args)
     {
-        ArgumentNullException.ThrowIfNull(host);
-
         List<string> nonSwitchArgs = new();
 
         foreach (string arg in args ?? Array.Empty<string>())
@@ -36,10 +44,10 @@ public static class CommandParser
                 {
                     case "--help":
                     case "-h":
-                        return host.Services.GetRequiredService<HelpCommand>();
+                        return this.host.Services.GetRequiredService<HelpCommand>();
                     case "--version":
                     case "-v":
-                        return host.Services.GetRequiredService<VersionCommand>();
+                        return this.host.Services.GetRequiredService<VersionCommand>();
                     default:
                         throw new InvalidOptionException(string.Format(Resources.InvalidOption, arg));
                 }
@@ -48,17 +56,17 @@ public static class CommandParser
             nonSwitchArgs.Add(arg);
         }
 
-        return BuildReportCommand(host, nonSwitchArgs);
+        return this.BuildReportCommand(nonSwitchArgs);
     }
 
-    private static StatisticsReportCommand BuildReportCommand(IHost host, IReadOnlyList<string> args)
+    private StatisticsReportCommand BuildReportCommand(IReadOnlyList<string> args)
     {
         if (args.Count < 2)
         {
             throw new InvalidOptionException(Resources.InvalidArguments);
         }
 
-        StatisticsReportCommand reportCommand = host.Services.GetRequiredService<StatisticsReportCommand>();
+        StatisticsReportCommand reportCommand = this.host.Services.GetRequiredService<StatisticsReportCommand>();
 
         reportCommand.Owner = args[0];
         reportCommand.Repository = args[1];
