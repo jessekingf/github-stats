@@ -19,6 +19,11 @@ public class GitReportPlainTextFormatter : IGitReportFormatter
         ArgumentNullException.ThrowIfNull(stats, nameof(stats));
 
         StringBuilder report = new();
+
+        report.AppendLine(stats.Repository.Name);
+        report.AppendLine(new string('=', stats.Repository.Name.Length));
+        report.AppendLine();
+
         foreach (ContributorStatistics contributor in stats.Contributors)
         {
             report.AppendLine(contributor.Username);
@@ -26,6 +31,7 @@ public class GitReportPlainTextFormatter : IGitReportFormatter
             report.AppendLine($"Lines added: {contributor.LinesAdded}");
             report.AppendLine($"Lines deleted: {contributor.LinesDeleted}");
             report.AppendLine($"Lines changed: {contributor.LinesChanged}");
+            report.AppendLine();
         }
 
         return report.ToString();

@@ -1,5 +1,6 @@
 ﻿namespace GitHubStats.Core.Services;
 
+using System.Collections.Generic;
 using GitHub.Client;
 using GitHubStats.Model;
 
@@ -22,18 +23,19 @@ public class GitHubService : IGitService
     /// <summary>
     /// Gets contributor statistics from a GitHub repository.
     /// </summary>
-    /// <param name="owner">The user or organization that owns the repository.</param>
-    /// <param name="repository">The name of the repository.</param>
-    /// <param name="token">The repository access token, if required.</param>
+    /// <param name="repository">The Git repository details.</param>
     /// <returns>The repository contributor statistics.</returns>
     /// <remarks>
     /// Initial requests for statistics may require additional time for GitHub to process.
     /// </remarks>
-    public async Task<RepositoryStatistics> GetContributorStatistics(string owner, string repository, string? token = null)
+    public async Task<RepositoryStatistics> GetContributorStatistics(Repository repository)
     {
-        ICollection<GitHub.Client.Model.ContributorStatistics>? gitHubStats = await this.gitHubClient.GetContributorStatistics(owner, repository, token);
+        ArgumentNullException.ThrowIfNull(repository);
 
-        RepositoryStatistics repoStats = new();
+        ICollection<GitHub.Client.Model.ContributorStatistics>? gitHubStats =
+            await this.gitHubClient.GetContributorStatistics(repository.Owner, repository.Name, repository.Token);
+
+        List<ContributorStatistics> contributors = [];
         foreach (GitHub.Client.Model.ContributorStatistics contributor in gitHubStats)
         {
             ContributorStatistics authorStats = new()
@@ -44,8 +46,14 @@ public class GitHubService : IGitService
                 LinesDeleted = contributor.Weeks.Sum(week => week.Deletions),
             };
 
-            repoStats.Contributors.Add(authorStats);
+            contributors.Add(authorStats);
         }
+
+        RepositoryStatistics repoStats = new()
+        {
+            Repository = repository,
+            Contributors = contributors,
+        };
 
         return repoStats;
     }

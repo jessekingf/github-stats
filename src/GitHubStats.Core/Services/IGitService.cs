@@ -9,11 +9,9 @@ using GitHubStats.Model;
 public interface IGitService
 {
     /// <summary>
-    /// Gets contributor statistics from a Git repository.
+    /// Gets contributor statistics for a Git repository.
     /// </summary>
-    /// <param name="owner">The user or organization that owns the repository.</param>
-    /// <param name="repository">The name of the repository.</param>
-    /// <param name="token">The repository access token, if required.</param>
+    /// <param name="repository">The Git repository details.</param>
     /// <returns>The repository contributor statistics.</returns>
-    Task<RepositoryStatistics> GetContributorStatistics(string owner, string repository, string? token = null);
+    Task<RepositoryStatistics> GetContributorStatistics(Repository repository);
 }

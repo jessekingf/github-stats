@@ -27,25 +27,7 @@ public class StatisticsReportCommand : ICommand
     /// <summary>
     /// Gets or sets the repository name.
     /// </summary>
-    public required string Repository
-    {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// Gets or sets the repository owner.
-    /// </summary>
-    public required string Owner
-    {
-        get;
-        set;
-    }
-
-    /// <summary>
-    /// Gets or sets the repository token.
-    /// </summary>
-    public string? Token
+    public required Repository Repository
     {
         get;
         set;
@@ -54,7 +36,7 @@ public class StatisticsReportCommand : ICommand
     /// <inheritdoc/>
     public async Task Execute()
     {
-        RepositoryStatistics stats = await this.gitService.GetContributorStatistics(this.Owner, this.Repository, this.Token);
+        RepositoryStatistics stats = await this.gitService.GetContributorStatistics(this.Repository);
         this.gitReportGenerator.GenerateReport(stats);
     }
 }

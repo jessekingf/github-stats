@@ -312,7 +312,7 @@ public class GitHubClientTests
         await Assert.ThrowsExceptionAsync<HttpRequestException>(() => gitHubClient.GetContributorStatistics(owner, repository));
     }
 
-    private void AssertAreEqual(IList<ContributorStatistics> expected, IList<ContributorStatistics> actual)
+    private void AssertAreEqual(List<ContributorStatistics> expected, List<ContributorStatistics> actual)
     {
         Assert.AreEqual(expected.Count, actual.Count);
         for (int i = 0; i < expected.Count; ++i)

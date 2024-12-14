@@ -2,6 +2,7 @@
 
 using GitHubStats.Commands;
 using GitHubStats.Exceptions;
+using GitHubStats.Model;
 using GitHubStats.Properties;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -59,7 +60,7 @@ public class CommandParser
         return this.BuildReportCommand(nonSwitchArgs);
     }
 
-    private StatisticsReportCommand BuildReportCommand(IReadOnlyList<string> args)
+    private StatisticsReportCommand BuildReportCommand(List<string> args)
     {
         if (args.Count < 2)
         {
@@ -68,12 +69,12 @@ public class CommandParser
 
         StatisticsReportCommand reportCommand = this.host.Services.GetRequiredService<StatisticsReportCommand>();
 
-        reportCommand.Owner = args[0];
-        reportCommand.Repository = args[1];
-        if (args.Count == 3)
+        reportCommand.Repository = new Repository()
         {
-            reportCommand.Token = args[2];
-        }
+            Owner = args[0],
+            Name = args[1],
+            Token = args.Count > 2 ? args[2] : null,
+        };
 
         return reportCommand;
     }
